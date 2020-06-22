@@ -18,6 +18,14 @@ def hello():
 
 @app.route('/song_add')
 def song_add():
+    #username
+    #song url
+    #start time
+    #end time
+    #langauge
+    #genre
+    #type
+    #name_song
     return "sucess"
 
 app.run(host='0.0.0.0', port=3000)
