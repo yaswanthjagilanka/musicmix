@@ -14,7 +14,7 @@ class MetaData:
     def __init__(self, SONG,title):
         """SONG is supposed to be a dict."""
         self.track_name = title
-        if SONG == "nodata":
+        if SONG is not None:
             self.track_name = SONG.track_name
             self.release_date = SONG.release_date
             self.artist_name = SONG.artist_name

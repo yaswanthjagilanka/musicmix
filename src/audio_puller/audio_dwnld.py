@@ -79,12 +79,13 @@ def setmetadata(song,path,metadata):
 
             audio.save()
 
-            data.add(TYER(encoding=3, text=metadata.release_date))
-            data.add(TIT2(encoding=3, text=metadata.track_name))
-            data.add(TPE1(encoding=3, text=metadata.artist_name))
-            data.add(TALB(encoding=3, text=metadata.collection_name))
-            data.add(TCON(encoding=3, text=metadata.primary_genre_name))
-            data.add(TRCK(encoding=3, text=str(metadata.track_number)))
+            if metadata.release_date : 
+                data.add(TYER(encoding=3, text=metadata.release_date))
+                data.add(TIT2(encoding=3, text=metadata.track_name))
+                data.add(TPE1(encoding=3, text=metadata.artist_name))
+                data.add(TALB(encoding=3, text=metadata.collection_name))
+                data.add(TCON(encoding=3, text=metadata.primary_genre_name))
+                data.add(TRCK(encoding=3, text=str(metadata.track_number)))
 
             data.save()
 
