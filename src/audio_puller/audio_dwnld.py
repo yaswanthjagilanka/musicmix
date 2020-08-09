@@ -63,7 +63,8 @@ def setmetadata(song,path,metadata):
             audio = MP3(SONG_PATH, ID3=ID3)
             data = ID3(SONG_PATH)
 
-            if metadata.artwork_url_100 : 
+            # if metadata.artwork_url_100 : 
+            if hasattr(metadata, 'artwork_url_100'):
                 #download gaana album and attach
                 urllib.request.urlretrieve(metadata.artwork_url_100,os.path.join(path,"art.jpg"))
             else:
