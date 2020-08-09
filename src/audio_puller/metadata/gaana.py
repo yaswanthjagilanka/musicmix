@@ -49,7 +49,7 @@ def searchSong(querry, lim=40):
             song_obj = GaanaSongs(data[i])
             SONG_TUPLE.append(song_obj)
     if not SONG_TUPLE:
-        data = "No Data"
+        data = "nodata"
     else:
         data = SONG_TUPLE[0]
     return data
