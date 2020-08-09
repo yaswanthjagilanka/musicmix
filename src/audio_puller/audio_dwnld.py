@@ -80,7 +80,8 @@ def setmetadata(song,path,metadata):
 
             audio.save()
 
-            if metadata.release_date : 
+            # if metadata.release_date : 
+            if hasattr(metadata, 'release_date'):
                 data.add(TYER(encoding=3, text=metadata.release_date))
                 data.add(TIT2(encoding=3, text=metadata.track_name))
                 data.add(TPE1(encoding=3, text=metadata.artist_name))
