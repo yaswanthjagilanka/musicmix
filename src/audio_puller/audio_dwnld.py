@@ -3,7 +3,8 @@ import youtube_dl
 
 def audio_download(url):
   ydl_opts = {
-      'outtmpl': '/content/drive/My Drive/Audio_Mixer/%(title)s-.%(ext)s%(id)s',
+    #   'outtmpl': '/content/drive/My Drive/Audio_Mixer/%(title)s-.%(ext)s%(id)s',
+      'outtmpl': '%(title)s-.%(ext)s%(id)s',
       'format': 'bestaudio/best',
       'postprocessors': [{
           'key': 'FFmpegExtractAudio',

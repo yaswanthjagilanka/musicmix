@@ -1,20 +1,30 @@
-from flask import Flask, request
-from flask_cors import CORS
-from scipy.stats import zscore
-import pandas as pd
-from dbhandling.db_manage import *
-import json
-import ast
-from preprocessing.preprocess import productfilter
-from training.main import *
+from flask import Flask, request,render_template
+from src.audio_puller import audio_dwnld
+# from bottle import Bottle, response, request as bottle_request
+# import json
+# import ast
 
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
 
 
 @app.route('/hello')
 def hello():
     return "hello"
+
+
+@app.route('/audio_collect')
+def audio_collect():
+    return render_template('base1.html')
+
+@app.route('/audio_recv',methods = ['POST', 'GET'])
+def audio_recv():
+    result = request.form
+    print (result['language'])
+    for key in result.keys():
+        print (key)
+    data = audio_dwnld.audio_download(result['url'])
+    return render_template('return_page.html')
 
 @app.route('/song_add')
 def song_add():
