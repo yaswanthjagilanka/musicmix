@@ -35,10 +35,13 @@ class GaanaSongs():
 
 def searchSong(querry, lim=40):
     """Nanan."""
+    querry = query_set(querry)
+    print ("querry",querry)
     url = base_url.format(querry)
     r = requests.get(url)
     data = r.json()
     data = data['tracks']
+    print (data)
     SONG_TUPLE = []
 
     if data:
@@ -48,9 +51,24 @@ def searchSong(querry, lim=40):
 
     return SONG_TUPLE[0]
 
+def query_set(querry):
+    querry = querry.replace("Video ","")
+    querry = querry.replace("video ","")
+    querry = querry.replace("song ","")
+    querry = querry.replace("Song ","")
+    querry = querry.replace("Songs","")
+    querry = querry.replace("Movie ","")
+    querry = querry.replace(" _ ","")
+    querry = querry.replace(" -","")
+    querry = querry.replace("| ","")
+    querry = querry.replace("  ","")
+    querry = querry.replace("Full","")
+    querry = querry.replace("HD ","")
+    return querry[:40]
 
 # if __name__ == '__main__':
 #     q = input("Enter the querry: ")
 #     dat = searchSong(q)
-#     for i in range(0, len(dat)):
-#         print(dat[i].collection_name)
+#     print (dat)
+    # for i in range(0, len(dat)):
+    #     print(dat[i].collection_name)
