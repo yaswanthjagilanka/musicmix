@@ -1,2 +1,4 @@
-Flask==1.1.2
 youtube_dl==2020.7.28
+requests==2.23.0
+Flask==1.1.2
+flask_ngrok==0.0.25
