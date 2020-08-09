@@ -46,7 +46,7 @@ def searchSong(querry, lim=40):
             song_obj = GaanaSongs(data[i])
             SONG_TUPLE.append(song_obj)
 
-    return SONG_TUPLE
+    return SONG_TUPLE[0]
 
 
 # if __name__ == '__main__':

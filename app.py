@@ -1,6 +1,6 @@
 from flask import Flask, request,render_template
 from src.audio_puller import audio_dwnld
-from flask_ngrok import run_with_ngrok
+# from flask_ngrok import run_with_ngrok
 # from flask import Flask
 # from bottle import Bottle, response, request as bottle_request
 # import json
@@ -8,7 +8,7 @@ from flask_ngrok import run_with_ngrok
 
 app = Flask(__name__)
 # CORS(app)
-run_with_ngrok(app)
+# run_with_ngrok(app)
 
 
 @app.route('/hello')
@@ -26,7 +26,7 @@ def audio_recv():
     print (result['language'])
     for key in result.keys():
         print (key)
-    data = audio_dwnld.audio_download(result['url'])
+    data = audio_dwnld.audio_process(result)
     return render_template('return_page.html')
 
 @app.route('/song_add')
