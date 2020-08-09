@@ -10,7 +10,7 @@ from .metadata.main import update_metadata
 base_drive = '/content/drive/My Drive/Songs'
 
 def audio_process(data):
-    path = base_drive +"/"+data['language'] + "/" + data['genre'] +"/"
+    path = base_drive +"/"+data['genre']+ "/"+ data['language']  + "/"
     #download and format change
     print ("data",data)
     info_dict = audio_download(data['url'],path)
