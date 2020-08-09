@@ -20,6 +20,7 @@ def audio_process(data):
     #metadata attach
     filename = info_dict['title']+'.mp3'
     filename = filename.replace(":"," -")
+    filename = filename.replace("|","_")
     print (os.path.join(path,filename))
     song = setmetadata(filename,path,metadata)
     #return success
