@@ -14,14 +14,15 @@ class MetaData:
     def __init__(self, SONG):
         """SONG is supposed to be a dict."""
         self.track_name = SONG.track_name
-        self.release_date = SONG.release_date
-        self.artist_name = SONG.artist_name
-        self.provider = "gaana"
-        self.collection_name = SONG.collection_name
-        self.primary_genre_name = SONG.primary_genre_name
-        self.track_number = '1'
-        self.artwork_url_100 = SONG.artwork_url_100
-        self.track_time = SONG.track_time
+        if SONG is not "No Data":
+            self.release_date = SONG.release_date
+            self.artist_name = SONG.artist_name
+            self.provider = "gaana"
+            self.collection_name = SONG.collection_name
+            self.primary_genre_name = SONG.primary_genre_name
+            self.track_number = '1'
+            self.artwork_url_100 = SONG.artwork_url_100
+            self.track_time = SONG.track_time
 
 
 def update_metadata(info_dict):
