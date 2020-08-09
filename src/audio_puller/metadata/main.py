@@ -31,5 +31,5 @@ def update_metadata(info_dict):
         print ("gaana meta data",gaana_meta_data)
         song_meta = MetaData(gaana_meta_data,info_dict['title'])
         song_meta.yt_tb_url = info_dict['thumbnails'][3]['url']
-        print ("song_meta",song_meta.artwork_url_100 )
+        # print ("song_meta",song_meta.artwork_url_100 )
         return song_meta
