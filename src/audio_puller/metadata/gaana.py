@@ -10,6 +10,7 @@ import requests
 base_url = "http://api.gaana.com/?type=search&subtype=search_song&key={}&token=b2e6d7fbc136547a940516e9b77e5990&format=JSON"
 
 SONG = []
+gaana_options = ['track_id', 'seokey', 'albumseokey', 'track_title', 'album_id', 'album_title', 'language', 'language_id', 'release_date', 'meta_title', 'meta_description', 'meta_keywords', 'meta_h1_tag', 'artwork', 'artwork_web', 'artwork_large', 'parental_warning', 'artist', 'gener', 'lyrics_url', 'youtube_id', 'popularity', 'rating', 'content_source', 'stream_type', 'duration', 'isrc', 'is_most_popular', 'track_format', 'rtmp', 'http', 'https', 'rtsp', 'display_global', 'mobile', 'country', 'vendor', 'is_local', 'premium_content', 'vgid', 'atw', 'vd_expiry', 'clip_videos', 'ppd', 'secondary_language', 'total_downloads', 'trivia_info', 'is_premium']
 
 
 class GaanaSongs():
@@ -21,9 +22,12 @@ class GaanaSongs():
         self.release_date = SONG['release_date']
         self.artist_name = SONG['artist'][0]['name']
         self.provider = "gaana"
+        self.language = SONG['language']
+        self.album_title = SONG['album_title']
+        self.lyrics_url = SONG['lyrics_url']
+        self.youtube_id = SONG['youtube_id']
         self.collection_name = SONG['album_title']
         self.primary_genre_name = SONG['gener'][0]['name']
-        self.track_number = '1'
         self.artwork_url_100 = SONG['artwork_large']
         self.track_time = self._convert_time(SONG['duration'])
 
@@ -33,45 +37,31 @@ class GaanaSongs():
         return in_time
 
 
-def searchSong(querry, lim=40):
+def searchSong(querry):
     """Nanan."""
-    querry = query_set(querry)
-    print ("querry",querry)
     url = base_url.format(querry)
     r = requests.get(url)
     data = r.json()
     data = data['tracks']
-    print (data)
     SONG_TUPLE = []
 
     if data:
         for i in range(0, len(data)):
             song_obj = GaanaSongs(data[i])
             SONG_TUPLE.append(song_obj)
+    print ("gaana data",data[0])
     if not SONG_TUPLE:
         data = None
     else:
         data = SONG_TUPLE[0]
     return data
 
-def query_set(querry):
-    querry = querry.replace("Video ","")
-    querry = querry.replace("video ","")
-    querry = querry.replace("song ","")
-    querry = querry.replace("Song ","")
-    querry = querry.replace("Songs","")
-    querry = querry.replace("Movie ","")
-    querry = querry.replace(" _ ","")
-    querry = querry.replace(" -","")
-    querry = querry.replace("| ","")
-    querry = querry.replace("  ","")
-    querry = querry.replace("Full","")
-    querry = querry.replace("HD ","")
-    return querry[:40]
-
 # if __name__ == '__main__':
 #     q = input("Enter the querry: ")
 #     dat = searchSong(q)
-#     print (dat)
-    # for i in range(0, len(dat)):
-    #     print(dat[i].collection_name)
+#     print (dat.track_name)
+#     print (dat.release_date)
+#     print (dat.artist_name)
+#     print (dat.primary_genre_name )
+#     print (dat.artwork_url_100) 
+#     print (dat.track_time )

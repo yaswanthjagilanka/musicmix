@@ -26,6 +26,7 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:49.0) Gecko/20100101 Firefox/49.0'
 }
 
+saavn_options = []
 
 def search_from_song_id(song_id):
     song_base_url = "https://www.jiosaavn.com/api.php?cc=in&_marker=0%3F_marker%3D0&_format=json&model=Redmi_5A&__call=song.getDetails&pids=" + \
@@ -53,6 +54,8 @@ def search_from_query(query):
         "{"), response.text.splitlines()))[0]
     songs_json = json.loads(songs_json)
     songs_data = songs_json['songs']['data']
+    songs_data=[songs_data[0]]
+    print ("songs data",songs_data)
     songs = []
     for song in songs_data:
         song_id = song['id']
@@ -91,6 +94,11 @@ class SaavnSong():
         self.track_number = '1'
         self.artwork_url_100 = self._get_proper_img_url(SONG['image'])
         self.track_time = self._convert_time(SONG['duration'])
+        self.provider = "gaana"
+        self.language = SONG['language']
+        # self.album_title = SONG['album_title']
+        # self.lyrics_url = SONG['lyrics_url']
+        # self.youtube_id = SONG['youtube_id']
 
     def _convert_time(self, duration):
         in_min = int(duration)
