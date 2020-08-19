@@ -1,6 +1,6 @@
 from flask import Flask, request,render_template
 from src.audio_puller import audio_dwnld
-# from flask_ngrok import run_with_ngrok
+from flask_ngrok import run_with_ngrok
 # from flask import Flask
 # from bottle import Bottle, response, request as bottle_request
 # import json
@@ -8,7 +8,7 @@ from src.audio_puller import audio_dwnld
 
 app = Flask(__name__)
 # CORS(app)
-# run_with_ngrok(app)
+run_with_ngrok(app)
 
 
 @app.route('/hello')
