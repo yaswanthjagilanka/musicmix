@@ -48,14 +48,14 @@ def search_from_song_id(song_id):
 
 
 def search_from_query(query):
+    query = query[:30]
     base_url = f"https://www.saavn.com/api.php?__call=autocomplete.get&_marker=0&query={query}&ctx=android&_format=json&_marker=0"
     response = requests.get(base_url)
     songs_json = list(filter(lambda x: x.startswith(
         "{"), response.text.splitlines()))[0]
     songs_json = json.loads(songs_json)
     songs_data = songs_json['songs']['data']
-    songs_data=[songs_data[0]]
-    print ("songs data",songs_data)
+    # songs_data=[songs_data[0]]
     songs = []
     for song in songs_data:
         song_id = song['id']
@@ -89,13 +89,14 @@ class SaavnSong():
         self.track_name = SONG['song']
         self.release_date = self._get_proper_date(SONG['release_date'])
         self.artist_name = SONG['primary_artists']
+        self.language = SONG['language']
+        self.album_title =  SONG['album']
+        self.lyrics_url = "None"
+        self.youtube_id = "None"
         self.collection_name = SONG['album']
         self.primary_genre_name = SONG['language']
-        self.track_number = '1'
-        self.artwork_url_100 = self._get_proper_img_url(SONG['image'])
+        self.artwork_url = self._get_proper_img_url(SONG['image'])
         self.track_time = self._convert_time(SONG['duration'])
-        self.provider = "gaana"
-        self.language = SONG['language']
         # self.album_title = SONG['album_title']
         # self.lyrics_url = SONG['lyrics_url']
         # self.youtube_id = SONG['youtube_id']
@@ -122,7 +123,8 @@ class SaavnSong():
 
         We need to return it in 100x100
         """
-        return url.replace("500x500", "100x100")
+        # return url.replace("500x500", "100x100")
+        return url
 
 
 def search_query(query):
@@ -133,8 +135,14 @@ def search_query(query):
     in. This will have the same attributes that all the other results
     of ytmdl meta providers have.
     """
-    results = [SaavnSong(song) for song in search_from_query(query)]
-    return results
+    # results = [SaavnSong(song) for song in search_from_query(query[:29])]
+    result = search_from_query(query[:29])
+    if result : 
+        result = SaavnSong(result[0])
+    else:
+        result = None 
+    return result
+    
 
 
 def generate_media_url(url):
@@ -316,13 +324,14 @@ def check_media_url(dec_url):
 
 if __name__ == '__main__':
     q = input("Enter the querry: ")
+    q=q[:29]
+    print (q)
     dat = search_query(q)
-    dat = dat[0]
+    # dat = dat[0]
     print (dat)
     print (dat.track_name)
     print (dat.release_date)
     print (dat.artist_name)
     print (dat.primary_genre_name )
-    print (dat.track_number )
-    print (dat.artwork_url_100) 
+    print (dat.artwork_url) 
     print (dat.track_time )

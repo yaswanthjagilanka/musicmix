@@ -28,7 +28,7 @@ class GaanaSongs():
         self.youtube_id = SONG['youtube_id']
         self.collection_name = SONG['album_title']
         self.primary_genre_name = SONG['gener'][0]['name']
-        self.artwork_url_100 = SONG['artwork_large']
+        self.artwork_url = SONG['artwork_large']
         self.track_time = self._convert_time(SONG['duration'])
 
     def _convert_time(self, duration):
@@ -49,19 +49,18 @@ def searchSong(querry):
         for i in range(0, len(data)):
             song_obj = GaanaSongs(data[i])
             SONG_TUPLE.append(song_obj)
-    print ("gaana data",data[0])
     if not SONG_TUPLE:
         data = None
     else:
         data = SONG_TUPLE[0]
     return data
 
-# if __name__ == '__main__':
-#     q = input("Enter the querry: ")
-#     dat = searchSong(q)
-#     print (dat.track_name)
-#     print (dat.release_date)
-#     print (dat.artist_name)
-#     print (dat.primary_genre_name )
-#     print (dat.artwork_url_100) 
-#     print (dat.track_time )
+if __name__ == '__main__':
+    q = input("Enter the querry: ")
+    dat = searchSong(q)
+    print (dat.track_name)
+    print (dat.release_date)
+    print (dat.artist_name)
+    print (dat.primary_genre_name )
+    print (dat.artwork_url_100) 
+    print (dat.track_time )

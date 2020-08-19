@@ -21,7 +21,7 @@ class YTSongs():
         self.youtube_id = SONG['webpage_url'].split('=')[1].replace('\'',"")
         self.collection_name = SONG['title']
         self.primary_genre_name = SONG['categories'][0]
-        self.artwork_url_100 = SONG['thumbnails'][3]['url']
+        self.artwork_url = SONG['thumbnails'][3]['url']
         self.track_time = self._convert_time(SONG['duration'])
 
     def _convert_time(self, duration):

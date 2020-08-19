@@ -14,13 +14,17 @@ def audio_process(data):
     #download and format change
     # print ("data",data)
     info_dict = audio_download(data['url'],path)
-    # print ("info_dict",info_dict)
+    print ("info_dict",info_dict['title'])
     #metadata processing - youtube and gaana
     metadata = get_meta_data(info_dict)
-    #metadata attach
+    #metadata attac
     filename = info_dict['title']+'.mp3'
     filename = filename.replace(":"," -")
+    filename = filename.replace("\"","\'")
     filename = filename.replace("|","_")
+    filename = filename.replace("__","_")
+    # filename = filename.replace(" __ ","_")
+    # filename = filename.replace(", ",",")
     song = setmetadata(filename,path,metadata)
     return "success"
 
@@ -49,8 +53,8 @@ def setmetadata(song,path,metadata):
     Set the meta data if the passed data is mp3.
     """
     print ("setmetadata",song,path,metadata)
+    SONG_PATH = os.path.join(path,song)
     if metadata:
-        SONG_PATH = os.path.join(path,song)
         audio = MP3(SONG_PATH, ID3=ID3)
         data = ID3(SONG_PATH)
         urllib.request.urlretrieve(metadata.artwork_url,os.path.join(path,"art.jpg"))
