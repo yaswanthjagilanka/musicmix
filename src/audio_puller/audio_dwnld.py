@@ -6,8 +6,8 @@ import os
 import sys
 import urllib.request
 from .metadata.main import update_metadata 
-base_drive = os.getcwd() + "/Songs"
-# base_drive = '/content/drive/My Drive/Songs'
+# base_drive = os.getcwd() + "/Songs"
+base_drive = '/content/drive/My Drive/Songs'
 
 def audio_process(data):
     path = base_drive +"/"+data['genre']+ "/"+ data['language']  + "/"
