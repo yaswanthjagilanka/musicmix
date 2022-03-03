@@ -11,7 +11,7 @@ from .metadata.main import update_metadata
 base_drive='/Users/yjagilanka/Google Drive/My Drive/Audio/Songs'
 
 def audio_process(data):
-    path = base_drive +"/"+data['language'] + "/"+ data['genre']+ "/"
+    path = base_drive +"/"+ data['genre']+ "/"+data['language'] + "/"
     #download and format change
     # print ("data",data)
     info_dict = audio_download(data['url'],path)
@@ -26,7 +26,7 @@ def audio_process(data):
     filename = filename.replace("__","_")
     # filename = filename.replace(" __ ","_")
     # filename = filename.replace(", ",",")
-    song = setmetadata(filename,path,metadata)
+    song = setmetadata(filename,path,metadata,data)
     return filename
 
 def audio_download(url,path):
@@ -50,7 +50,7 @@ def get_meta_data(info_dict):
     song = update_metadata(info_dict)
     return song
 
-def setmetadata(song,path,metadata):
+def setmetadata(song,path,metadata,data):
     """
     Set the meta data if the passed data is mp3.
     """
@@ -73,7 +73,10 @@ def setmetadata(song,path,metadata):
         data.save()
         final = metadata.track_name + '.mp3'
     else:
-        final = song.replace(".mp3","")[15] + '.mp3'
+        if data['rename']:
+            final = data['rename']
+        else:
+            final = song.replace(".mp3","")[27] + '.mp3'
     print ("final",final)
     # # Rename the downloaded file
     os.rename(SONG_PATH, os.path.join(path,final))
