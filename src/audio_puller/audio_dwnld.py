@@ -7,10 +7,11 @@ import sys
 import urllib.request
 from .metadata.main import update_metadata 
 # base_drive = os.getcwd() + "/Songs"
-base_drive = '/content/drive/My Drive/Songs'
+# base_drive = '/content/drive/My Drive/Songs'
+base_drive='/Users/yjagilanka/Google Drive/My Drive/Audio/Songs'
 
 def audio_process(data):
-    path = base_drive +"/"+data['genre']+ "/"+ data['language']  + "/"
+    path = base_drive +"/"+data['language'] + "/"+ data['genre']+ "/"
     #download and format change
     # print ("data",data)
     info_dict = audio_download(data['url'],path)
@@ -26,7 +27,7 @@ def audio_process(data):
     # filename = filename.replace(" __ ","_")
     # filename = filename.replace(", ",",")
     song = setmetadata(filename,path,metadata)
-    return "success"
+    return filename
 
 def audio_download(url,path):
   ydl_opts = {
@@ -37,6 +38,7 @@ def audio_download(url,path):
           'key': 'FFmpegExtractAudio',
           'preferredcodec': 'mp3',
           'preferredquality': '320',
+        #   'nocheckcertificate': True,
       }],
   }
   with youtube_dl.YoutubeDL(ydl_opts) as ydl:
@@ -71,7 +73,7 @@ def setmetadata(song,path,metadata):
         data.save()
         final = metadata.track_name + '.mp3'
     else:
-        final = song.replace(".mp3","")[10] + '.mp3'
+        final = song.replace(".mp3","")[15] + '.mp3'
     print ("final",final)
     # # Rename the downloaded file
     os.rename(SONG_PATH, os.path.join(path,final))

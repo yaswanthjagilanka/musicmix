@@ -16,8 +16,14 @@ class YTSongs():
         self.release_date = SONG['upload_date']
         self.artist_name = SONG['artist']
         self.language = None
-        self.album_title = SONG['album']
-        self.lyrics_url = SONG['subtitles']
+        try:
+            self.album_title = SONG['album']
+        except:
+            pass
+        try:
+            self.lyrics_url = SONG['subtitles']
+        except:
+            pass
         self.youtube_id = SONG['webpage_url'].split('=')[1].replace('\'',"")
         self.collection_name = SONG['title']
         self.primary_genre_name = SONG['categories'][0]

@@ -20,8 +20,14 @@ class MetaData:
         self.artist_name = SONG.artist_name
         self.provider = provider
         self.lanugage = SONG.language
-        self.album_title = SONG.album_title
-        self.lyrics_url = SONG.lyrics_url
+        try:
+            self.album_title = SONG.album_title
+        except:
+            pass
+        try:
+            self.lyrics_url = SONG.lyrics_url
+        except:
+            pass
         self.youtube_id = SONG.youtube_id
         self.collection_name = SONG.collection_name
         self.primary_genre_name = SONG.primary_genre_name
